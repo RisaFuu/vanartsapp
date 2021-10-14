@@ -7,6 +7,7 @@ const path = require('path');
 
 const PORT = 5000;
 
+//configure to my sql database
 const db = mysql.createConnection({
     host:'localhost',
     user:'root',
@@ -16,12 +17,18 @@ const db = mysql.createConnection({
 
 });
 
+//connect to database
 db.connect((err)=>{
     if(err){
         throw err;
     }
     console.log("my sql database connected");
-})
+});
+
+global.db = db;
+
+app.set('port',process.env.port || PORT);
+app.set('views',__dirname+'/views');
 
 app.listen(PORT,()=>{
     console.log(`The sever is running on localhost:5000:${PORT}`);
